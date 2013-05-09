@@ -27,6 +27,8 @@ PRODUCT_PACKAGES += \
     LiveWallpapersPicker \
     PhotoTable
 
+include $(SRC_TARGET_DIR)/product/emulator.mk
+
 # Additional settings used in all AOSP builds
 PRODUCT_PROPERTY_OVERRIDES := \
     ro.com.android.dateformat=MM-dd-yyyy
