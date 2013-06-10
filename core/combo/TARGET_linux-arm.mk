@@ -167,6 +167,14 @@ endif
 
 TARGET_GLOBAL_CPPFLAGS += -fvisibility-inlines-hidden
 
+# option to enable pipe
+ifeq ($(TARGET_USE_PIPE),true)
+    TARGET_arm_CFLAGS += -pipe
+    TARGET_thumb_CFLAGS += -pipe
+    TARGET_GLOBAL_CFLAGS += -pipe
+    TARGET_RELEASE_CFLAGS += -pipe
+endif
+
 # More flags/options can be added here
 TARGET_RELEASE_CFLAGS := \
 			-DNDEBUG \
