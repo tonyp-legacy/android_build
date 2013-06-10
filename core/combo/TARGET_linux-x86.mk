@@ -100,6 +100,11 @@ TARGET_GLOBAL_CFLAGS += \
 			-funwind-tables \
 			-include $(call select-android-config-h,target_linux-x86)
 
+# option to enable pipe
+ifeq ($(TARGET_USE_PIPE),true)
+    TARGET_GLOBAL_CFLAGS += -pipe
+endif
+
 # XXX: Not sure this is still needed. Must check with our toolchains.
 TARGET_GLOBAL_CPPFLAGS += \
 			-fno-use-cxa-atexit
