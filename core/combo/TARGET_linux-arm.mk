@@ -90,6 +90,17 @@ else
 TARGET_thumb_CFLAGS := $(TARGET_arm_CFLAGS)
 endif
 
+ifeq ($(TARGET_GCC_VERSION),$(filter $(TARGET_GCC_VERSION),4.8 4.9))
+#SHUT THE F$#@ UP!
+TARGET_arm_CFLAGS +=  -Wno-unused-parameter \
+                      -Wno-unused-value \
+                      -Wno-unused-function
+
+TARGET_thumb_CFLAGS +=  -Wno-unused-parameter \
+                        -Wno-unused-value \
+                        -Wno-unused-function
+endif
+
 # Set FORCE_ARM_DEBUGGING to "true" in your buildspec.mk
 # or in your environment to force a full arm build, even for
 # files that are normally built as thumb; this can make
@@ -132,7 +143,7 @@ TARGET_GLOBAL_CFLAGS += $(TARGET_ANDROID_CONFIG_CFLAGS)
 # We cannot turn it off blindly since the option is not available
 # in gcc-4.4.x.  We also want to disable sincos optimization globally
 # by turning off the builtin sin function.
-ifneq ($(filter 4.6 4.6.% 4.7 4.7.%, $(shell $(TARGET_CC) --version)),)
+ifneq ($(filter 4.6 4.6.% 4.7 4.7.% 4.8 4.8.% 4.9 4.9.%, $(shell $(TARGET_CC) --version)),)
 TARGET_GLOBAL_CFLAGS += -Wno-unused-but-set-variable -fno-builtin-sin \
 			-fno-strict-volatile-bitfields
 endif
