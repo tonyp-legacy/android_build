@@ -22,6 +22,12 @@ ifeq ($(strip $(TARGET_ARCH_VARIANT)),)
 TARGET_ARCH_VARIANT := x86
 endif
 
+ifeq ($(strip $(TARGET_GCC_VERSION_EXP)),)
+TARGET_GCC_VERSION := 4.7
+else
+TARGET_GCC_VERSION := $(TARGET_GCC_VERSION_EXP)
+endif
+
 # Include the arch-variant-specific configuration file.
 # Its role is to define various ARCH_X86_HAVE_XXX feature macros,
 # plus initial values for TARGET_GLOBAL_CFLAGS
@@ -36,7 +42,7 @@ include $(TARGET_ARCH_SPECIFIC_MAKEFILE)
 
 # You can set TARGET_TOOLS_PREFIX to get gcc from somewhere else
 ifeq ($(strip $(TARGET_TOOLS_PREFIX)),)
-TARGET_TOOLCHAIN_ROOT := prebuilts/gcc/$(HOST_PREBUILT_TAG)/x86/i686-linux-android-4.6
+TARGET_TOOLCHAIN_ROOT := prebuilts/gcc/$(HOST_PREBUILT_TAG)/x86/i686-linux-android-$(TARGET_GCC_VERSION)
 TARGET_TOOLS_PREFIX := $(TARGET_TOOLCHAIN_ROOT)/bin/i686-linux-android-
 endif
 
